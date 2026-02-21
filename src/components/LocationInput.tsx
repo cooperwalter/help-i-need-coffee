@@ -120,17 +120,17 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 				type="button"
 				onClick={handleGeoClick}
 				disabled={geoLoading}
-				className="bg-[#FFF6EC] hover:bg-[#F5E6D3] border-2 border-dashed border-[rgba(44,24,16,0.15)] hover:border-[rgba(200,89,10,0.35)] rounded-xl px-5 py-3.5 font-['Nunito'] text-[0.95rem] font-bold text-[#3D2B1F] hover:text-[#C8590A] transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 w-full"
+				className="bg-cream hover:bg-[#F5E6D3] border-2 border-dashed border-espresso/15 hover:border-burnt-orange/35 rounded-xl px-5 py-3.5 font-body text-[0.95rem] font-bold text-espresso-light hover:text-burnt-orange transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 w-full"
 			>
 				{geoLoading ? "finding you..." : "use my current location"}
 			</button>
 
-			{geoError && <p className="text-sm font-['Nunito'] text-[#5C4033] mt-2 italic">{geoError}</p>}
+			{geoError && <p className="text-sm font-body text-mocha mt-2 italic">{geoError}</p>}
 
-			<p className="text-center text-xs font-['Nunito'] text-[#5C4033] opacity-50 my-3">or</p>
+			<p className="text-center text-xs font-body text-mocha opacity-50 my-3">or</p>
 
 			<div className="relative">
-				<span className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#5C4033] opacity-40 pointer-events-none">
+				<span className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-mocha opacity-40 pointer-events-none">
 					<svg
 						viewBox="0 0 24 24"
 						fill="none"
@@ -151,14 +151,14 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 					placeholder="or type an address..."
 					onChange={(e) => handleQueryChange(e.target.value)}
 					onKeyDown={handleKeyDown}
-					className="bg-[#FFF6EC] focus:bg-[#FFFBF5] border-2 border-[rgba(44,24,16,0.08)] focus:border-[rgba(200,89,10,0.4)] rounded-xl py-3.5 pl-11 pr-10 font-['Nunito'] text-[0.95rem] font-medium text-[#2C1810] placeholder:text-[#5C4033] placeholder:opacity-45 focus:shadow-[0_0_0_3px_rgba(200,89,10,0.08)] outline-none transition-all duration-200 w-full"
+					className="bg-cream focus:bg-cream-light border-2 border-espresso/[0.08] focus:border-burnt-orange/40 rounded-xl py-3.5 pl-11 pr-10 font-body text-[0.95rem] font-medium text-espresso placeholder:text-mocha placeholder:opacity-45 focus:shadow-[0_0_0_3px_rgba(200,89,10,0.08)] outline-none transition-all duration-200 w-full"
 				/>
 
 				{query && (
 					<button
 						type="button"
 						onClick={handleClear}
-						className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-[#5C4033] opacity-40 hover:opacity-70 transition-opacity"
+						className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-mocha opacity-40 hover:opacity-70 transition-opacity"
 					>
 						&times;
 					</button>
@@ -167,7 +167,7 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 				{showDropdown && suggestions.length > 0 && (
 					<div
 						role="listbox"
-						className="absolute z-10 mt-2 w-full bg-[#FFFBF5] rounded-xl border border-[rgba(44,24,16,0.08)] shadow-[0_4px_12px_rgba(44,24,16,0.08)] overflow-hidden"
+						className="absolute z-10 mt-2 w-full bg-cream-light rounded-xl border border-espresso/[0.08] shadow-[0_4px_12px_rgba(44,24,16,0.08)] overflow-hidden"
 					>
 						{suggestions.map((suggestion, index) => (
 							<div
@@ -179,7 +179,7 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 								onKeyDown={(e) => {
 									if (e.key === "Enter" || e.key === " ") handleSuggestionClick(suggestion);
 								}}
-								className={`px-4 py-3 cursor-pointer text-sm font-['Nunito'] text-[#2C1810] hover:bg-[#FFF6EC] transition-colors duration-150${index === highlightedIndex ? " bg-[#FFF6EC]" : ""}`}
+								className={`px-4 py-3 cursor-pointer text-sm font-body text-espresso hover:bg-cream transition-colors duration-150${index === highlightedIndex ? " bg-cream" : ""}`}
 							>
 								{suggestion.description}
 							</div>

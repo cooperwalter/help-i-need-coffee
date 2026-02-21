@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@theme {
+	--color-cream: #fff6ec;
+	--color-cream-light: #fffaf4;
+	--color-espresso: #2c1810;
+	--color-espresso-light: #3d2b1f;
+	--color-mocha: #5c4033;
+	--color-burnt-orange: #c8590a;
+	--color-amber-warm: #d4860a;
+	--color-status-green: #4a7a3d;
+	--color-status-red: #a0413a;
+	--font-display: "Fraunces", serif;
+	--font-body: "Nunito", sans-serif;
+}
+
 @keyframes cup-wobble {
 	0%,
 	100% {
