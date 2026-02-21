@@ -47,7 +47,6 @@ function LoadingDots() {
 	);
 }
 
-
 function NoiseOverlay() {
 	return (
 		<svg
