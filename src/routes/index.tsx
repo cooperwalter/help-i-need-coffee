@@ -47,73 +47,6 @@ function LoadingDots() {
 	);
 }
 
-function FooterCupSvg() {
-	return (
-		<svg
-			viewBox="0 0 80 72"
-			className="w-20 h-[72px] opacity-30"
-			xmlns="http://www.w3.org/2000/svg"
-			aria-hidden="true"
-		>
-			<ellipse cx="34" cy="64" rx="28" ry="5" fill="#5C4033" opacity="0.35" />
-			<ellipse cx="34" cy="62" rx="26" ry="4.5" fill="#3D2B1F" opacity="0.15" />
-
-			<path d="M10 30 L14 58 Q34 64 54 58 L58 30 Z" fill="#5C4033" opacity="0.6" />
-			<path d="M11 30 L15 57 Q34 62 53 57 L57 30 Z" fill="#8B6F5E" opacity="0.5" />
-			<path d="M10 30 Q34 26 58 30" fill="none" stroke="#5C4033" strokeWidth="1" opacity="0.4" />
-
-			<ellipse cx="34" cy="30" rx="24" ry="7" fill="#D4860A" opacity="0.5" />
-			<ellipse cx="34" cy="30" rx="22" ry="6" fill="#C8590A" opacity="0.3" />
-
-			<path d="M34 26 C30 28 30 31 34 33 C38 31 38 28 34 26 Z" fill="#FFF6EC" opacity="0.6" />
-			<path
-				d="M34 33 L34 36"
-				stroke="#FFF6EC"
-				strokeWidth="1.5"
-				strokeLinecap="round"
-				opacity="0.4"
-			/>
-
-			<path
-				d="M58 34 C64 34 68 38 68 43 C68 48 64 50 58 48"
-				fill="none"
-				stroke="#5C4033"
-				strokeWidth="3"
-				strokeLinecap="round"
-				opacity="0.5"
-			/>
-
-			<path
-				d="M30 22 C30 16 28 10 32 4"
-				fill="none"
-				stroke="#5C4033"
-				strokeWidth="1.2"
-				strokeLinecap="round"
-				opacity="0.2"
-			/>
-			<path
-				d="M37 21 C37 15 39 9 36 3"
-				fill="none"
-				stroke="#5C4033"
-				strokeWidth="1.2"
-				strokeLinecap="round"
-				opacity="0.15"
-			/>
-
-			<g transform="translate(44,24) rotate(35)" opacity="0.4">
-				<rect x="0" y="-12" width="2.5" height="14" rx="1" fill="#C8590A" />
-			</g>
-			<g transform="translate(47,23) rotate(25)" opacity="0.35">
-				<rect x="0" y="-11" width="2" height="13" rx="1" fill="#A84A08" />
-			</g>
-
-			<g transform="translate(12,58) rotate(-10)" opacity="0.35">
-				<path d="M0 0 L3 -2 L2.5 1 L5 3 L2 3 L0 6 L-2 3 L-5 3 L-2.5 1 L-3 -2 Z" fill="#C8590A" />
-			</g>
-		</svg>
-	);
-}
-
 function NoiseOverlay() {
 	return (
 		<svg
@@ -303,9 +236,8 @@ export function Home() {
 				)}
 
 				<footer className="mt-10 pt-6 text-center flex flex-col items-center gap-2">
-					<FooterCupSvg />
 					<p className="font-body text-[0.75rem] font-semibold text-mocha opacity-30 tracking-[0.04em]">
-						made with warmth and mild desperation
+						made with ☕ and mild desperation
 					</p>
 				</footer>
 			</div>
