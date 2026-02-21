@@ -1,0 +1,15 @@
+node_modules
+.output
+dist
+out
+.env
+.env.*
+.git
+.github
+.claude
+.idea
+.DS_Store
+coverage
+*.lcov
+*.log
+*.tsbuildinfo
