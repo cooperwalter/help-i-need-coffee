@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>help, i need coffee.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --cream: #FFF6EC;
+    --cream-dark: #F5E6D3;
+    --espresso: #2C1810;
+    --espresso-mid: #3D2B1F;
+    --espresso-light: #5C4033;
+    --burnt-orange: #C8590A;
+    --burnt-orange-hover: #A84A08;
+    --amber: #D4940A;
+    --amber-warm: #E8A817;
+    --amber-glow: #F5C542;
+    --rust: #8B4513;
+    --sage: #7A8B6F;
+    --open-green: #4A7A3D;
+    --paper-white: #FFFBF5;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Nunito', -apple-system, sans-serif;
+    background-color: var(--cream);
+    color: var(--espresso);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(212, 148, 10, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(200, 89, 10, 0.04) 0%, transparent 60%);
+  }
+
+  .page-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- Header ---- */
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-top: 1rem;
+  }
+
+  .header-tagline {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--burnt-orange);
+    margin-bottom: 0.75rem;
+    opacity: 0.85;
+  }
+
+  .header-title {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--espresso);
+    margin-bottom: 0.25rem;
+    font-style: italic;
+    font-variation-settings: 'opsz' 36;
+  }
+
+  .header-title .accent {
+    color: var(--burnt-orange);
+  }
+
+  .header-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--espresso-light);
+    font-weight: 500;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ---- Coffee Cup SVG ---- */
+  .coffee-cup-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .coffee-cup-svg {
+    width: 64px;
+    height: 64px;
+    animation: cup-wobble 3s ease-in-out infinite;
+  }
+
+  @keyframes cup-wobble {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+
+  .steam-path {
+    animation: steam-rise 2.4s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .steam-path:nth-child(2) {
+    animation-delay: 0.8s;
+  }
+
+  .steam-path:nth-child(3) {
+    animation-delay: 1.6s;
+  }
+
+  @keyframes steam-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(0px);
+    }
+    20% {
+      opacity: 0.6;
+    }
+    60% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+  }
+
+  /* ---- Divider ---- */
+  .diner-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.75rem 0;
+  }
+
+  .diner-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--espresso-mid) 20%,
+      var(--espresso-mid) 80%,
+      transparent
+    );
+    opacity: 0.12;
+  }
+
+  .diner-divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--burnt-orange);
+    transform: rotate(45deg);
+    opacity: 0.5;
+    border-radius: 1px;
+  }
+
+  /* ---- Location Section ---- */
+  .location-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-label {
+    font-family: 'Fraunces', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--espresso-light);
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .location-card {
+    background: var(--paper-white);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow:
+      0 1px 3px rgba(44, 24, 16, 0.06),
+      0 4px 12px rgba(44, 24, 16, 0.04);
+    border: 1px solid rgba(44, 24, 16, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .location-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--burnt-orange), var(--amber-warm), var(--burnt-orange));
+    opacity: 0.5;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .share-location-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: var(--cream);
+    border: 2px dashed rgba(44, 24, 16, 0.15);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--espresso-mid);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-bottom: 1rem;
+  }
+
+  .share-location-btn:hover {
+    background: var(--cream-dark);
+    border-color: rgba(200, 89, 10, 0.35);
+    color: var(--burnt-orange);
+    transform: translateY(-1px);
+  }
+
+  .share-location-btn:active {
+    transform: translateY(0);
+  }
+
+  .share-location-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .location-or {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--espresso-light);
+    opacity: 0.4;
+    margin-bottom: 0.85rem;
+  }
+
+  .address-input-wrapper {
+    position: relative;
+  }
+
+  .address-input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.75rem;
+    background: var(--cream);
+    border: 2px solid rgba(44, 24, 16, 0.08);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--espresso);
+    outline: none;
+    transition: all 0.25s ease;
+  }
+
+  .address-input::placeholder {
+    color: var(--espresso-light);
+    opacity: 0.45;
+  }
+
+  .address-input:focus {
+    border-color: rgba(200, 89, 10, 0.4);
+    box-shadow: 0 0 0 3px rgba(200, 89, 10, 0.08);
+    background: var(--paper-white);
+  }
+
+  .address-input-icon {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--espresso-light);
+    opacity: 0.4;
+  }
+
+  /* ---- Searching State Hint ---- */
+  .searching-hint {
+    text-align: center;
+    margin: 1.5rem 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--espresso-light);
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  .searching-hint .dot-pulse {
+    display: inline-block;
+    animation: dot-blink 1.4s infinite;
+  }
+
+  .searching-hint .dot-pulse:nth-child(2) { animation-delay: 0.2s; }
+  .searching-hint .dot-pulse:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes dot-blink {
+    0%, 80%, 100% { opacity: 0.2; }
+    40% { opacity: 1; }
+  }
+
+  /* ---- Result Card ---- */
+  .result-section {
+    margin-top: 0.5rem;
+  }
+
+  .result-card {
+    background: var(--paper-white);
+    border-radius: 20px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    box-shadow:
+      0 2px 4px rgba(44, 24, 16, 0.06),
+      0 8px 24px rgba(44, 24, 16, 0.08),
+      0 1px 2px rgba(44, 24, 16, 0.04);
+    border: 1px solid rgba(44, 24, 16, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 148, 10, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .result-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--burnt-orange), var(--amber-warm), var(--amber-glow), var(--amber-warm), var(--burnt-orange));
+    border-radius: 0 0 20px 20px;
+    opacity: 0.6;
+  }
+
+  .result-found-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--burnt-orange);
+    margin-bottom: 0.15rem;
+    opacity: 0.8;
+  }
+
+  .result-reassurance {
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--espresso-light);
+    opacity: 0.7;
+    margin-bottom: 1.25rem;
+    font-variation-settings: 'opsz' 14;
+  }
+
+  .result-shop-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--espresso);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    font-variation-settings: 'opsz' 30;
+  }
+
+  .result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-distance {
+    background: rgba(44, 24, 16, 0.06);
+    color: var(--espresso-mid);
+  }
+
+  .badge-distance svg {
+    width: 13px;
+    height: 13px;
+    opacity: 0.7;
+  }
+
+  .badge-open {
+    background: rgba(74, 122, 61, 0.1);
+    color: var(--open-green);
+  }
+
+  .badge-open .open-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--open-green);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .result-hours {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    background: var(--cream);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(44, 24, 16, 0.04);
+  }
+
+  .result-hours svg {
+    width: 16px;
+    height: 16px;
+    color: var(--espresso-light);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .result-hours-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--espresso-light);
+  }
+
+  .result-hours-text strong {
+    color: var(--espresso);
+    font-weight: 700;
+  }
+
+  .navigate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1.1rem 1.5rem;
+    background: var(--burnt-orange);
+    color: var(--paper-white);
+    border: none;
+    border-radius: 14px;
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+      0 4px 12px rgba(200, 89, 10, 0.3),
+      0 1px 3px rgba(200, 89, 10, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+    font-variation-settings: 'opsz' 24;
+  }
+
+  .navigate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 14px;
+  }
+
+  .navigate-btn:hover {
+    background: var(--burnt-orange-hover);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+      0 6px 20px rgba(200, 89, 10, 0.35),
+      0 2px 6px rgba(200, 89, 10, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .navigate-btn:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow:
+      0 2px 8px rgba(200, 89, 10, 0.3),
+      0 1px 2px rgba(200, 89, 10, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .navigate-btn .arrow-icon {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .navigate-btn:hover .arrow-icon {
+    transform: translateX(3px);
+  }
+
+  .navigate-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .footer-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--espresso-light);
+    opacity: 0.3;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-coffee-ring {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 0.75rem;
+    opacity: 0.06;
+  }
+
+  /* ---- Responsive ---- */
+  @media (min-width: 520px) {
+    .page-wrapper {
+      padding: 3rem 2rem 4rem;
+    }
+
+    .header-title {
+      font-size: 2.6rem;
+    }
+
+    .result-card {
+      padding: 2rem 1.75rem 1.75rem;
+    }
+
+    .result-shop-name {
+      font-size: 1.85rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page-wrapper {
+      padding: 4rem 2rem 5rem;
+    }
+  }
+
+  /* ---- Subtle entry animations ---- */
+  .location-card {
+    animation: fade-up 0.6s ease-out both;
+    animation-delay: 0.1s;
+  }
+
+  .result-card {
+    animation: fade-up 0.6s ease-out both;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .header {
+    animation: fade-up 0.6s ease-out both;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <header class="header">
+    <p class="header-tagline">For the truly desperate</p>
+    <h1 class="header-title">help, i need <span class="accent">coffee.</span></h1>
+    <p class="header-subtitle">We'll find you the closest cup, quick.</p>
+
+    <div class="coffee-cup-wrapper">
+      <svg class="coffee-cup-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Steam -->
+        <g transform="translate(20, 4)">
+          <path class="steam-path" d="M4 14 C4 10, 0 9, 0 6 C0 3, 4 2, 4 0" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path class="steam-path" d="M12 14 C12 10, 8 9, 8 6 C8 3, 12 2, 12 0" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path class="steam-path" d="M20 14 C20 10, 16 9, 16 6 C16 3, 20 2, 20 0" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+        </g>
+        <!-- Saucer -->
+        <ellipse cx="28" cy="56" rx="22" ry="4" fill="#3D2B1F" opacity="0.08"/>
+        <!-- Cup body -->
+        <path d="M10 26 L12 50 C12 52 16 54 28 54 C40 54 44 52 44 50 L46 26 Z" fill="#5C4033" stroke="#3D2B1F" stroke-width="1.5"/>
+        <!-- Coffee inside -->
+        <ellipse cx="28" cy="27" rx="17.5" ry="4" fill="#2C1810"/>
+        <!-- Cup rim highlight -->
+        <ellipse cx="28" cy="26" rx="18" ry="4.5" fill="none" stroke="#3D2B1F" stroke-width="1.5"/>
+        <!-- Cup highlight -->
+        <path d="M16 30 L17 46" stroke="rgba(255,255,255,0.12)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Handle -->
+        <path d="M46 30 C54 30, 56 36, 54 40 C52 44, 48 44, 46 42" fill="none" stroke="#3D2B1F" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Location Input -->
+  <section class="location-section">
+    <p class="section-label">Where are you, friend?</p>
+    <div class="location-card">
+      <button class="share-location-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10" cy="10" r="3"/>
+          <path d="M10 1v3M10 16v3M1 10h3M16 10h3"/>
+        </svg>
+        Use my current location
+      </button>
+      <p class="location-or">or type it in</p>
+      <div class="address-input-wrapper">
+        <svg class="address-input-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 2C6.5 2 4 4.5 4 7.5C4 12.5 10 18 10 18C10 18 16 12.5 16 7.5C16 4.5 13.5 2 10 2Z"/>
+          <circle cx="10" cy="7.5" r="2"/>
+        </svg>
+        <input type="text" class="address-input" placeholder="e.g. 123 Main St, Anytown" value="349 Divisadero St, San Francisco">
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="diner-divider">
+    <span class="diner-divider-line"></span>
+    <span class="diner-divider-diamond"></span>
+    <span class="diner-divider-line"></span>
+  </div>
+
+  <!-- Searching hint -->
+  <p class="searching-hint">
+    hang in there, pal<span class="dot-pulse">.</span><span class="dot-pulse">.</span><span class="dot-pulse">.</span> found one!
+  </p>
+
+  <!-- Result Card -->
+  <section class="result-section">
+    <div class="result-card">
+      <p class="result-found-label">Nearest spot</p>
+      <p class="result-reassurance">Relief is just around the corner.</p>
+
+      <h2 class="result-shop-name">Blue Bottle Coffee</h2>
+
+      <div class="result-meta">
+        <span class="result-badge badge-distance">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 14L8 2L14 14"/>
+            <path d="M4 10h8"/>
+          </svg>
+          3 min drive
+        </span>
+        <span class="result-badge badge-open">
+          <span class="open-dot"></span>
+          OPEN &middot; closes at 6:00 PM
+        </span>
+      </div>
+
+      <div class="result-hours">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10" cy="10" r="8"/>
+          <path d="M10 5v5l3.5 2"/>
+        </svg>
+        <span class="result-hours-text">Today: <strong>7:00 AM &ndash; 6:00 PM</strong></span>
+      </div>
+
+      <button class="navigate-btn" type="button">
+        Take me there
+        <span class="arrow-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 10h12"/>
+            <path d="M11 5l5 5-5 5"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <svg class="footer-coffee-ring" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="20" stroke="#3D2B1F" stroke-width="4" opacity="0.5"/>
+      <circle cx="24" cy="24" r="16" stroke="#3D2B1F" stroke-width="1" opacity="0.3"/>
+    </svg>
+    <p class="footer-text">made with warmth and mild desperation</p>
+  </footer>
+
+</div>
+</body>
+</html>

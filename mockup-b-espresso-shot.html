@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>help, i need coffee.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --black: #0A0A0A;
+    --black-warm: #0E0C0A;
+    --amber: #E87000;
+    --amber-hot: #FF8C00;
+    --amber-deep: #C45500;
+    --amber-glow: rgba(232, 112, 0, 0.35);
+    --amber-glow-soft: rgba(232, 112, 0, 0.12);
+    --cream: #F0EBE1;
+    --cream-dim: #8A8478;
+    --cream-faint: #3D3A35;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--black);
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.035;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 60% 40% at 50% 65%, rgba(232, 112, 0, 0.04) 0%, transparent 70%);
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1.5rem;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    width: 100%;
+    max-width: 640px;
+    padding-top: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .brand {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 1.8rem;
+  }
+
+  .headline {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    line-height: 0.92;
+    text-transform: lowercase;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+
+  .headline span {
+    display: block;
+  }
+
+  .headline .accent {
+    color: var(--amber);
+  }
+
+  .subline {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    margin-top: 1.2rem;
+    line-height: 1.6;
+    max-width: 32ch;
+  }
+
+  /* ── LOCATION INPUT ── */
+  .location-section {
+    width: 100%;
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  .input-label {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    border-bottom: 1px solid var(--cream-faint);
+    padding-bottom: 0.6rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--amber);
+  }
+
+  .address-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--cream);
+    caret-color: var(--amber);
+    padding: 0;
+  }
+
+  .address-input::placeholder {
+    color: var(--cream-faint);
+    font-style: italic;
+  }
+
+  .locate-btn {
+    background: none;
+    border: 1px solid var(--cream-faint);
+    color: var(--cream-dim);
+    font-family: 'Archivo Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .locate-btn:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  .locate-btn:active {
+    background: rgba(232, 112, 0, 0.08);
+  }
+
+  .locate-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 0.4rem;
+    vertical-align: -1px;
+  }
+
+  .locate-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    max-width: 640px;
+    height: 1px;
+    background: var(--cream-faint);
+    margin-bottom: 2.5rem;
+    opacity: 0.4;
+  }
+
+  /* ── STATUS LINE ── */
+  .status-line {
+    width: 100%;
+    max-width: 640px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--cream-dim);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── RESULT ── */
+  .result {
+    width: 100%;
+    max-width: 640px;
+    padding-bottom: 4rem;
+  }
+
+  .shop-name {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .shop-address {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--cream-dim);
+    margin-bottom: 2rem;
+  }
+
+  /* ── TIME DISPLAY ── */
+  .time-block {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .time-number {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(9rem, 30vw, 16rem);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    color: var(--cream);
+    position: relative;
+    display: inline-block;
+  }
+
+  .time-unit {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    color: var(--amber);
+    display: block;
+    margin-top: 0.05em;
+  }
+
+  .time-context {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    margin-top: 1.2rem;
+    line-height: 1.5;
+  }
+
+  /* ── OPEN STATUS ── */
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
+    margin-top: 2.5rem;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ADE80;
+    flex-shrink: 0;
+    animation: dotPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .status-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--cream);
+    letter-spacing: 0.03em;
+  }
+
+  .status-text .dim {
+    color: var(--cream-dim);
+  }
+
+  .hours-detail {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--cream-faint);
+    margin-top: 0.4rem;
+    margin-bottom: 2.8rem;
+    padding-left: calc(7px + 0.6rem);
+  }
+
+  /* ── GO BUTTON ── */
+  .go-btn-wrapper {
+    width: 100%;
+    position: relative;
+  }
+
+  .go-btn {
+    display: block;
+    width: 100%;
+    padding: 1.4rem 2rem;
+    background: var(--amber);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s ease, transform 0.1s ease;
+    animation: btnGlow 3s ease-in-out infinite;
+  }
+
+  .go-btn:hover {
+    background: var(--amber-hot);
+    transform: translateY(-1px);
+  }
+
+  .go-btn:active {
+    transform: translateY(0);
+    background: var(--amber-deep);
+  }
+
+  @keyframes btnGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 20px var(--amber-glow-soft),
+        0 0 60px rgba(232, 112, 0, 0.06);
+    }
+    50% {
+      box-shadow:
+        0 0 30px var(--amber-glow),
+        0 0 80px rgba(232, 112, 0, 0.12),
+        0 0 120px rgba(232, 112, 0, 0.04);
+    }
+  }
+
+  .go-btn-text {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    position: relative;
+    z-index: 2;
+  }
+
+  .go-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 40%,
+      rgba(255, 255, 255, 0.06) 60%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 4s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes shimmer {
+    0%, 70%, 100% { transform: translateX(-100%); }
+    40% { transform: translateX(100%); }
+  }
+
+  .go-btn-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cream-faint);
+    text-align: center;
+    margin-top: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    width: 100%;
+    max-width: 640px;
+    padding: 3rem 0 2rem;
+    margin-top: auto;
+  }
+
+  .footer-line {
+    height: 1px;
+    background: var(--cream-faint);
+    opacity: 0.3;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--cream-faint);
+    letter-spacing: 0.04em;
+    line-height: 1.8;
+  }
+
+  .footer-text a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--cream-faint);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .footer-text a:hover {
+    color: var(--amber);
+    border-color: var(--amber);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 640px) {
+    .header {
+      padding-top: 5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .location-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .time-block {
+      margin-bottom: 2rem;
+    }
+
+    .result {
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header {
+      padding-top: 6rem;
+    }
+
+    .page {
+      padding: 0 2rem;
+    }
+  }
+
+  /* ── SELECTION ── */
+  ::selection {
+    background: var(--amber);
+    color: var(--black);
+  }
+
+  /* ── FOCUS STYLES ── */
+  .locate-btn:focus-visible,
+  .go-btn:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .address-input:focus-visible {
+    outline: none;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--black);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--cream-faint);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--cream-dim);
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="brand">help, i need coffee.</div>
+      <h1 class="headline">
+        <span>find your</span>
+        <span>nearest <span class="accent">fix.</span></span>
+      </h1>
+      <p class="subline">we see you. hang in there. caffeine is closer than you think.</p>
+    </header>
+
+    <!-- LOCATION INPUT -->
+    <section class="location-section">
+      <label class="input-label" for="address">your location</label>
+      <div class="input-row">
+        <input
+          type="text"
+          id="address"
+          class="address-input"
+          placeholder="enter address or intersection"
+          value="349 W Broadway, New York"
+          autocomplete="off"
+        >
+        <button class="locate-btn" type="button" aria-label="Use my current location">
+          <span class="locate-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="8" r="3"/>
+              <line x1="8" y1="1" x2="8" y2="3.5"/>
+              <line x1="8" y1="12.5" x2="8" y2="15"/>
+              <line x1="1" y1="8" x2="3.5" y2="8"/>
+              <line x1="12.5" y1="8" x2="15" y2="8"/>
+            </svg>
+          </span>
+          LOCATE ME
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- STATUS -->
+    <div class="status-line">nearest result // 0.2 mi walking</div>
+
+    <!-- RESULT -->
+    <section class="result">
+      <h2 class="shop-name">Blue Bottle Coffee</h2>
+      <p class="shop-address">160 Berry St, Brooklyn, NY 11249</p>
+
+      <!-- THE BIG NUMBER -->
+      <div class="time-block">
+        <div class="time-number" aria-label="3 minutes away">3</div>
+        <div class="time-unit">MIN</div>
+        <p class="time-context">coffee is 3 minutes away. you'll survive.</p>
+      </div>
+
+      <!-- STATUS -->
+      <div class="status-row">
+        <div class="status-dot" aria-hidden="true"></div>
+        <span class="status-text">OPEN <span class="dim">// closes 6:00 PM</span></span>
+      </div>
+      <div class="hours-detail">Mon-Fri 7:00 AM - 6:00 PM / Sat-Sun 8:00 AM - 5:00 PM</div>
+
+      <!-- GO BUTTON -->
+      <div class="go-btn-wrapper">
+        <button class="go-btn" type="button">
+          <span class="go-btn-text">Go. Get Coffee.</span>
+        </button>
+        <p class="go-btn-sub">opens directions in maps</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-line"></div>
+      <p class="footer-text">
+        help, i need coffee. // a panic-driven caffeine locator<br>
+        no tracking. no accounts. just <a href="#">coffee</a>.
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    (function() {
+      var btn = document.querySelector('.go-btn');
+      btn.addEventListener('mouseenter', function() {
+        this.style.transition = 'background 0.2s ease, transform 0.15s ease';
+      });
+
+      var input = document.querySelector('.address-input');
+      input.addEventListener('focus', function() {
+        this.parentElement.style.borderColor = '#E87000';
+      });
+      input.addEventListener('blur', function() {
+        this.parentElement.style.borderColor = '';
+      });
+
+      var locateBtn = document.querySelector('.locate-btn');
+      locateBtn.addEventListener('click', function() {
+        var original = this.textContent;
+        this.textContent = 'LOCATING...';
+        this.style.borderColor = '#E87000';
+        this.style.color = '#E87000';
+        var self = this;
+        setTimeout(function() {
+          self.innerHTML =
+            '<span class="locate-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="3.5"/><line x1="8" y1="12.5" x2="8" y2="15"/><line x1="1" y1="8" x2="3.5" y2="8"/><line x1="12.5" y1="8" x2="15" y2="8"/></svg></span> LOCATED';
+          setTimeout(function() {
+            self.innerHTML =
+              '<span class="locate-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="3.5"/><line x1="8" y1="12.5" x2="8" y2="15"/><line x1="1" y1="8" x2="3.5" y2="8"/><line x1="12.5" y1="8" x2="15" y2="8"/></svg></span> LOCATE ME';
+            self.style.borderColor = '';
+            self.style.color = '';
+          }, 1500);
+        }, 800);
+      });
+    })();
+  </script>
+</body>
+</html>
