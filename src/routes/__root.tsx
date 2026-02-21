@@ -64,7 +64,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 			<head>
 				<HeadContent />
 			</head>
-			<body suppressHydrationWarning>
+			<body>
 				{children}
 				<Scripts />
 			</body>

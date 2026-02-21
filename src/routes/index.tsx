@@ -83,7 +83,9 @@ function NoiseOverlay() {
 export function Home() {
 	const [appState, setAppState] = useState<AppState>("input");
 	const [result, setResult] = useState<CoffeeShopResult | null>(null);
+	const [userCoords, setUserCoords] = useState<Coordinates | null>(null);
 	const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+	const [isEditingLocation, setIsEditingLocation] = useState(false);
 
 	useEffect(() => {
 		if (appState !== "loading") return;
@@ -98,6 +100,7 @@ export function Home() {
 	const handleLocationSelected = useCallback(async (coords: Coordinates) => {
 		setAppState("loading");
 		setLoadingMessageIndex(0);
+		setUserCoords(coords);
 
 		const response = await searchNearbyShopsFn({ data: { lat: coords.lat, lng: coords.lng } });
 
@@ -113,9 +116,15 @@ export function Home() {
 		}
 	}, []);
 
+	const handleEditingChange = useCallback((editing: boolean) => {
+		setIsEditingLocation(editing);
+	}, []);
+
 	const handleSearchAgain = useCallback(() => {
 		setAppState("input");
 		setResult(null);
+		setUserCoords(null);
+		setIsEditingLocation(false);
 	}, []);
 
 	return (
@@ -149,7 +158,7 @@ export function Home() {
 					</p>
 				</header>
 
-				<section style={{ animation: "fade-up 0.6s ease-out 0.1s both" }}>
+				<section className="relative z-20" style={{ animation: "fade-up 0.6s ease-out 0.1s both" }}>
 					<div className="relative">
 						<div
 							className={`bg-cream-light rounded-2xl p-5 min-[520px]:p-7 border border-espresso/[0.06] shadow-[0_1px_3px_rgba(44,24,16,0.06),0_4px_12px_rgba(44,24,16,0.04)] transition-opacity duration-300 ${appState === "loading" ? "opacity-50 pointer-events-none" : ""}`}
@@ -162,6 +171,7 @@ export function Home() {
 
 							<LocationInput
 								onLocationSelected={handleLocationSelected}
+								onEditingChange={handleEditingChange}
 								isDisabled={appState === "loading"}
 							/>
 						</div>
@@ -180,8 +190,11 @@ export function Home() {
 				{appState === "result" && result && (
 					<>
 						<DinerDivider />
-						<section style={{ animation: "fade-up 0.6s ease-out 0.3s both" }}>
-							<ResultCard result={result} onSearchAgain={handleSearchAgain} />
+						<section
+							className={`transition-opacity duration-300 ${isEditingLocation ? "opacity-40" : ""}`}
+							style={{ animation: "fade-up 0.6s ease-out 0.3s both" }}
+						>
+							<ResultCard result={result} origin={userCoords ?? undefined} onSearchAgain={handleSearchAgain} />
 						</section>
 					</>
 				)}

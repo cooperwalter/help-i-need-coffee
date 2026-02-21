@@ -16,6 +16,8 @@ Autocomplete requests are debounced by 300ms. The dropdown shows up to 5 suggest
 
 The input has a clear/reset affordance when text is present. Keyboard navigation (arrow keys + enter) works on the suggestions dropdown. The dropdown closes on outside click or Escape key.
 
+The input section sits at a higher z-index than content below it so the autocomplete dropdown always overlays the result card and other sections. The component exposes an `onEditingChange` callback that fires `true` when the user types a non-empty query and `false` when the input is blurred, cleared, or a suggestion is selected. The parent uses this to fade the result card while the user is actively changing the address.
+
 ## Priority
 
 Browser geolocation is presented first (larger, more prominent) because it is faster and more accurate for the target use case. Address input is always available as a fallback.

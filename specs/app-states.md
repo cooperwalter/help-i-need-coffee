@@ -38,8 +38,11 @@ The screen shows the matched coffee shop:
 - "use a different app" fallback link
 - "search again" link to reset
 
+The location input remains visible above the result card. If the user starts typing a new address, the result card fades to 40% opacity (but remains visible) while the autocomplete dropdown appears above the result card. If the user blurs the input without selecting a new suggestion, the result card returns to full opacity. Selecting a new suggestion triggers a fresh search.
+
 Transitions:
 - User clicks "search again" -> Input state (form cleared)
+- User selects a new autocomplete suggestion -> Loading state (new search)
 
 ## Error: No Results
 
