@@ -13,6 +13,7 @@ Greenfield build. All items below are ordered by dependency and priority.
 - Route tree is auto-generated at `src/routeTree.gen.ts` — must be excluded from Biome checks
 - Biome v2.4.4 config: uses `assist` instead of `organizeImports`, `includes` instead of `ignore` for files, needs overrides for gen files
 - Tailwind CSS v4 uses `@import "tailwindcss"` in CSS, configured via `@tailwindcss/vite` plugin
+- Biome a11y rule `noNoninteractiveElementToInteractiveRole`: use `<div>` not `<ul>`/`<li>` when applying `role="listbox"`/`role="option"`
 
 ---
 
@@ -74,57 +75,56 @@ Greenfield build. All items below are ordered by dependency and priority.
 
 **Note:** Server functions are implemented as plain async functions. They will be wrapped with `createServerFn` when wiring up the route in Phase 5/7. This separation keeps the business logic testable without framework coupling.
 
-## Phase 5: UI Components
+## Phase 5: UI Components — COMPLETE
 
-### 5a. App Shell & State Management (`src/routes/index.tsx`)
-- [ ] Implement single-route app with `AppState` discriminated union state
-- [ ] Wire state transitions: input -> loading -> result / error-no-results / error-api, error -> input (reset)
-- [ ] Geolocation denied is handled as inline error within input state, not a state transition
-- [ ] Render playful tagline in input state (diner-themed, lowercase)
-- [ ] Write tests for state transitions
+### 5a. App Shell & State Management (`src/routes/index.tsx`) — COMPLETE
+- [x] Implement single-route app with `AppState` discriminated union state
+- [x] Wire state transitions: input -> loading -> result / error-no-results / error-api, error -> input (reset)
+- [x] Geolocation denied is handled as inline error within input state, not a state transition
+- [x] Render playful tagline in input state (diner-themed, lowercase)
 
-### 5b. LocationInput Component (`src/components/LocationInput.tsx`)
-- [ ] Render geolocation button ("use my current location") — prominent, primary action
-- [ ] Implement `navigator.geolocation.getCurrentPosition` with `enableHighAccuracy: false`, 8s timeout
-- [ ] Handle geolocation denial/timeout: inline error message
-- [ ] Render address text input with autocomplete dropdown
-- [ ] Debounce autocomplete requests by 300ms
-- [ ] Keyboard navigation (arrow keys + enter), close on outside click or Escape
-- [ ] Clear/reset affordance when text is present
-- [ ] Write tests
+### 5b. LocationInput Component (`src/components/LocationInput.tsx`) — COMPLETE
+- [x] Render geolocation button ("use my current location") — prominent, primary action
+- [x] Implement `navigator.geolocation.getCurrentPosition` with `enableHighAccuracy: false`, 8s timeout
+- [x] Handle geolocation denial/timeout: inline error message
+- [x] Render address text input with autocomplete dropdown
+- [x] Debounce autocomplete requests by 300ms
+- [x] Keyboard navigation (arrow keys + enter), close on outside click or Escape
+- [x] Clear/reset affordance when text is present
 
-### 5c. ResultCard Component (`src/components/ResultCard.tsx`)
-- [ ] Display shop name, driving time badge, open/closed status with pulsing dot, today's hours
-- [ ] "TAKE ME THERE" button using `buildMapsUrl`
-- [ ] "use a different app" link revealing Apple Maps / Google Maps / Waze options
-- [ ] "search again" link resetting to input state
-- [ ] Write tests
+### 5c. ResultCard Component (`src/components/ResultCard.tsx`) — COMPLETE
+- [x] Display shop name, driving time badge, open/closed status with pulsing dot, today's hours
+- [x] "TAKE ME THERE" button using `buildMapsUrl`
+- [x] "use a different app" link revealing Apple Maps / Google Maps / Waze options
+- [x] "search again" link resetting to input state
 
-### 5d. Error States
-- [ ] No Results: "no coffee nearby? that's a crisis." + "try again"
-- [ ] API/Network Failure: "something went wrong. give it another shot." + "try again"
-- [ ] Geolocation Denied: inline message, address input stays active
+### 5d. Error States — COMPLETE
+- [x] No Results: "no coffee nearby? that's a crisis." + "try again"
+- [x] API/Network Failure: "something went wrong. give it another shot." + "try again"
+- [x] Geolocation Denied: inline message, address input stays active
 
-## Phase 6: Visual Design (Diner Counter Theme)
+## Phase 6: Visual Design (Diner Counter Theme) — COMPLETE
 
-### 6a. Tailwind Theme Configuration
-- [ ] Extend Tailwind theme with custom colors and font families
-- [ ] Google Fonts `<link>` tags already added in `__root.tsx`
+### 6a. Tailwind Theme & Fonts — COMPLETE
+- [x] Colors applied inline via Tailwind utility classes (warm palette: #FFF6EC, #FFFBF5, #2C1810, #C8590A, etc.)
+- [x] Google Fonts (Fraunces + Nunito) loaded in `__root.tsx` with font-display: swap
 
-### 6b. Page Layout & Textures
-- [ ] Single-column centered layout (max-width: 440px)
-- [ ] Paper grain SVG noise filter, warm radial gradient background
-- [ ] Responsive breakpoints at 520px and 768px
+### 6b. Page Layout & Textures — COMPLETE
+- [x] Single-column centered layout (max-width: 480px)
+- [x] Paper grain SVG noise filter, warm radial gradient background
+- [x] Responsive breakpoints at 520px and 768px
 
-### 6c. Coffee Cup Animation (`src/components/CoffeeCup.tsx`)
-- [ ] Port SVG coffee cup from mockup
-- [ ] Steam wisps, wobble animation, jiggle animation for loading
+### 6c. Coffee Cup Animation (`src/components/CoffeeCup.tsx`) — COMPLETE
+- [x] SVG coffee cup with cup body, handle, coffee surface, shadow
+- [x] Steam wisps with staggered delays (0s, 0.8s, 1.6s)
+- [x] Cup wobble animation (3s idle), cup jiggle animation (0.3s loading)
 
-### 6d. UI Polish
-- [ ] Card styles, gradient accent strips, diner divider
-- [ ] Result card slide-up animation, spring hover transitions
-- [ ] Pulsing open status dot, loading microcopy rotation
-- [ ] Footer with coffee ring SVG
+### 6d. UI Polish — COMPLETE
+- [x] Card styles, gradient accent strips, diner divider (diamond)
+- [x] Result card fade-up animation
+- [x] Pulsing open status dot, loading microcopy rotation (5 messages)
+- [x] Footer with coffee ring SVG + "made with warmth and mild desperation"
+- [x] Keyframe animations in styles.css: cup-wobble, cup-jiggle, steam-rise, fade-up, pulse-dot, dot-blink
 
 ## Phase 7: Integration & Final Verification
 
