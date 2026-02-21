@@ -8,27 +8,28 @@ import {
 	buildWazeUrl,
 } from "../lib/maps-url";
 import { detectPlatform } from "../lib/platform";
-import type { CoffeeShopResult } from "../lib/types";
+import type { CoffeeShopResult, Coordinates } from "../lib/types";
 
 type ResultCardProps = {
 	result: CoffeeShopResult;
+	origin?: Coordinates;
 	onSearchAgain: () => void;
 };
 
 const RESULT_LABELS = ["nearest spot", "found one close by"] as const;
 
-export function ResultCard({ result, onSearchAgain }: ResultCardProps) {
+export function ResultCard({ result, origin, onSearchAgain }: ResultCardProps) {
 	const [showAlternativeApps, setShowAlternativeApps] = useState(false);
 
 	const platform =
 		typeof navigator !== "undefined" ? detectPlatform(navigator.userAgent) : "desktop";
 
-	const primaryMapsUrl = buildMapsUrl(platform, result.coordinates);
-	const appleMapsUrl = buildAppleMapsUrl(result.coordinates);
+	const primaryMapsUrl = buildMapsUrl(platform, result.coordinates, origin);
+	const appleMapsUrl = buildAppleMapsUrl(result.coordinates, origin);
 	const googleMapsUrl =
 		platform === "ios"
-			? buildGoogleMapsIOSAppUrl(result.coordinates)
-			: buildGoogleMapsWebUrl(result.coordinates);
+			? buildGoogleMapsIOSAppUrl(result.coordinates, origin)
+			: buildGoogleMapsWebUrl(result.coordinates, origin);
 	const wazeUrl = buildWazeUrl(result.coordinates);
 
 	const resultLabel = RESULT_LABELS[0];

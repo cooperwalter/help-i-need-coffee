@@ -63,6 +63,23 @@ describe("ResultCard", () => {
 		expect(anchor?.getAttribute("target")).toBe("_blank");
 	});
 
+	it("should include origin coordinates in the maps URL when provided", () => {
+		const dest = { lat: 40.7, lng: -74.0 };
+		const orig = { lat: 40.75, lng: -73.99 };
+		render(
+			<ResultCard
+				result={makeResult({ coordinates: dest })}
+				origin={orig}
+				onSearchAgain={() => {}}
+			/>,
+		);
+
+		const link = screen.getByText(/take me there/i);
+		const anchor = link.closest("a");
+		expect(anchor?.getAttribute("href")).toContain("40.75");
+		expect(anchor?.getAttribute("href")).toContain("-73.99");
+	});
+
 	it("should show the 'use a different app' options when the link is clicked", () => {
 		render(<ResultCard result={makeResult()} onSearchAgain={() => {}} />);
 
