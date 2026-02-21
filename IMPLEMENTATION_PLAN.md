@@ -49,55 +49,30 @@ Greenfield build. All items below are ordered by dependency and priority.
 
 ---
 
-## Phase 4: Server Functions (`src/server/`)
+## Phase 4: Server Functions (`src/server/`) — COMPLETE
 
-### 4a. Google API Wrapper (`src/lib/google-api.ts`)
-- [ ] Implement reusable `fetchWithRetry` wrapper: retry once on 429/500/503, 10s timeout per call
-- [ ] Ensure the Google API key (`process.env.GOOGLE_PLACES_API_KEY`) is never included in responses
-- [ ] Write tests for retry logic, timeout, and key sanitization
+### 4a. Google API Wrapper (`src/lib/google-api.ts`) — COMPLETE
+- [x] `fetchWithRetry` with configurable timeout (default 10s), retry on 429/500/503
+- [x] `getApiKey()` and `sanitizeResponse()` to protect API key
+- [x] 12 tests passing
 
-### 4b. `searchNearbyShops` Server Function
-- [ ] Create TanStack Start server function with `createServerFn`
-- [ ] Accept `{ lat: number; lng: number }` input
-- [ ] Query Google Places Nearby Search (type: `cafe`, keyword: `coffee`, starting radius: 5km)
-- [ ] Expand radius to 10km, then 20km if no results found
-- [ ] Take top 5 results by straight-line distance, query Directions API for driving time to each
-- [ ] Return the shop with shortest driving time as `CoffeeShopResult`
-- [ ] Return typed error responses (`NO_RESULTS`, `API_ERROR`, `TIMEOUT`) — errors returned as objects, never thrown
-- [ ] Write tests:
-  - [ ] should return the nearest coffee shop by driving time when multiple shops are found
-  - [ ] should expand search radius from 5km to 10km when no shops found at 5km
-  - [ ] should expand search radius from 10km to 20km when no shops found at 10km
-  - [ ] should return empty result with status when no shops found at any radius
-  - [ ] should include open/closed status and today's hours in the response
-  - [ ] should handle Google Nearby Search API errors with a typed error response
-  - [ ] should handle Google Directions API errors with a typed error response
-  - [ ] should retry once on 429/500/503 errors from Google API
-  - [ ] should timeout after 10 seconds per Google API call
-  - [ ] should never include the Google API key in the response
+### 4b. `searchNearbyShops` Server Function — COMPLETE
+- [x] Queries Google Places Nearby Search, expands radius 5km → 10km → 20km
+- [x] Gets driving time via Directions API for top 5 results, returns shortest
+- [x] Parses opening hours into 12-hour format, returns typed errors
+- [x] 10 tests passing
 
-### 4c. `getPlaceAutocomplete` Server Function
-- [ ] Create TanStack Start server function with `createServerFn`
-- [ ] Accept `{ query: string; locationBias?: Coordinates }` input
-- [ ] Validate non-empty input string
-- [ ] Query Google Places Autocomplete, return up to 5 suggestions with coordinates
-- [ ] Bias results toward user's region using `locationBias` when provided
-- [ ] Return typed error responses (`API_ERROR`, `INVALID_INPUT`) — errors returned as objects, never thrown
-- [ ] Write tests:
-  - [ ] should return up to 5 formatted address suggestions
-  - [ ] should return empty array for queries with no matches
-  - [ ] should handle Google Autocomplete API errors with a typed error response
-  - [ ] should validate that the input string is non-empty
+### 4c. `getPlaceAutocomplete` Server Function — COMPLETE
+- [x] Queries Google Places Autocomplete with location bias, resolves coordinates via Place Details
+- [x] Input validation, typed error responses
+- [x] 4 tests passing
 
-### 4d. `getDirections` Server Function
-- [ ] Create TanStack Start server function with `createServerFn`
-- [ ] Accept `{ origin: Coordinates; destination: Coordinates }` input
-- [ ] Query Google Directions API for driving time
-- [ ] Return `{ driveTimeMinutes, distanceMeters }` or typed error (`NO_ROUTE`, `API_ERROR`, `TIMEOUT`) — errors returned as objects, never thrown
-- [ ] Write tests:
-  - [ ] should return driving time in minutes between two coordinates
-  - [ ] should handle Google Directions API errors with a typed error response
-  - [ ] should handle no-route-found responses
+### 4d. `getDirections` Server Function — COMPLETE
+- [x] Queries Google Directions API, returns drive time and distance
+- [x] Typed error responses for NO_ROUTE, API_ERROR, TIMEOUT
+- [x] 3 tests passing
+
+**Note:** Server functions are implemented as plain async functions. They will be wrapped with `createServerFn` when wiring up the route in Phase 5/7. This separation keeps the business logic testable without framework coupling.
 
 ## Phase 5: UI Components
 
