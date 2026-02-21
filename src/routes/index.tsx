@@ -4,7 +4,7 @@ import { CoffeeCup } from "../components/CoffeeCup";
 import { LocationInput } from "../components/LocationInput";
 import { ResultCard } from "../components/ResultCard";
 import type { AppState, CoffeeShopResult, Coordinates } from "../lib/types";
-import { searchNearbyShops } from "../server/search-nearby-shops";
+import { searchNearbyShopsFn } from "../server/search-nearby-shops";
 
 export const Route = createFileRoute("/")({
 	component: Home,
@@ -99,7 +99,7 @@ function Home() {
 		setAppState("loading");
 		setLoadingMessageIndex(0);
 
-		const response = await searchNearbyShops({ lat: coords.lat, lng: coords.lng });
+		const response = await searchNearbyShopsFn({ data: { lat: coords.lat, lng: coords.lng } });
 
 		if ("error" in response) {
 			if (response.code === "NO_RESULTS") {

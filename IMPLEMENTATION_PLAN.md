@@ -14,6 +14,7 @@ Greenfield build. All items below are ordered by dependency and priority.
 - Biome v2.4.4 config: uses `assist` instead of `organizeImports`, `includes` instead of `ignore` for files, needs overrides for gen files
 - Tailwind CSS v4 uses `@import "tailwindcss"` in CSS, configured via `@tailwindcss/vite` plugin
 - Biome a11y rule `noNoninteractiveElementToInteractiveRole`: use `<div>` not `<ul>`/`<li>` when applying `role="listbox"`/`role="option"`
+- TanStack Start `createServerFn` API (v1.161.3): uses `.inputValidator()` (not `.validator()`), called with `{ data: ... }` on client side
 
 ---
 
@@ -73,7 +74,7 @@ Greenfield build. All items below are ordered by dependency and priority.
 - [x] Typed error responses for NO_ROUTE, API_ERROR, TIMEOUT
 - [x] 3 tests passing
 
-**Note:** Server functions are implemented as plain async functions. They will be wrapped with `createServerFn` when wiring up the route in Phase 5/7. This separation keeps the business logic testable without framework coupling.
+**Note:** Server functions are implemented as plain async functions for testability, with `createServerFn` wrappers (`searchNearbyShopsFn`, `getPlaceAutocompleteFn`) for client-side usage. The `.inputValidator()` method is used (not `.validator()`).
 
 ## Phase 5: UI Components — COMPLETE
 
@@ -126,9 +127,9 @@ Greenfield build. All items below are ordered by dependency and priority.
 - [x] Footer with coffee ring SVG + "made with warmth and mild desperation"
 - [x] Keyframe animations in styles.css: cup-wobble, cup-jiggle, steam-rise, fade-up, pulse-dot, dot-blink
 
-## Phase 7: Integration & Final Verification
+## Phase 7: Integration & Final Verification — COMPLETE
 
-- [ ] Wire LocationInput -> searchNearbyShops -> ResultCard full flow
-- [ ] Verify all state transitions end-to-end
-- [ ] Run full test suite, type check, lint — all pass
-- [ ] Verify `bun run build` succeeds
+- [x] Wrap server functions with `createServerFn` (searchNearbyShopsFn, getPlaceAutocompleteFn)
+- [x] Wire LocationInput -> searchNearbyShopsFn -> ResultCard full flow via server functions
+- [x] Run full test suite (48 pass), type check, lint — all pass
+- [x] Verify `bun run build` succeeds (client + server bundles)

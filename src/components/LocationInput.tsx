@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { AutocompleteSuggestion, Coordinates } from "~/lib/types";
-import { getPlaceAutocomplete } from "~/server/get-place-autocomplete";
+import { getPlaceAutocompleteFn } from "~/server/get-place-autocomplete";
 
 type LocationInputProps = {
 	onLocationSelected: (coords: Coordinates) => void;
@@ -66,7 +66,7 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 		}
 
 		debounceTimer.current = setTimeout(async () => {
-			const result = await getPlaceAutocomplete({ query: value });
+			const result = await getPlaceAutocompleteFn({ data: { query: value } });
 			if ("error" in result) {
 				setSuggestions([]);
 				setShowDropdown(false);

@@ -1,3 +1,4 @@
+import { createServerFn } from "@tanstack/react-start";
 import { fetchWithRetry, getApiKey, sanitizeResponse } from "~/lib/google-api";
 import type { AutocompleteErrorResponse, AutocompleteResponse } from "~/lib/types";
 
@@ -95,3 +96,9 @@ export async function getPlaceAutocomplete(
 		});
 	}
 }
+
+export const getPlaceAutocompleteFn = createServerFn({ method: "GET" })
+	.inputValidator((data: { query: string; locationBias?: { lat: number; lng: number } }) => data)
+	.handler(async ({ data }) => {
+		return getPlaceAutocomplete(data);
+	});

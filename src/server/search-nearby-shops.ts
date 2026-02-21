@@ -1,3 +1,4 @@
+import { createServerFn } from "@tanstack/react-start";
 import { fetchWithRetry, getApiKey, sanitizeResponse } from "~/lib/google-api";
 import type { CoffeeShopResult, SearchErrorResponse } from "~/lib/types";
 
@@ -216,3 +217,9 @@ export async function searchNearbyShops(
 		throw error;
 	}
 }
+
+export const searchNearbyShopsFn = createServerFn({ method: "GET" })
+	.inputValidator((data: { lat: number; lng: number }) => data)
+	.handler(async ({ data }) => {
+		return searchNearbyShops(data);
+	});
