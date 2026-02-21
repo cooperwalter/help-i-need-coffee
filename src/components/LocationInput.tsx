@@ -129,7 +129,7 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 
 			<p className="text-center text-xs font-body text-mocha opacity-50 my-3">or</p>
 
-			<div className="relative">
+			<div className="relative" suppressHydrationWarning>
 				<span className="absolute left-3.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-mocha opacity-40 pointer-events-none">
 					<svg
 						viewBox="0 0 24 24"
@@ -149,8 +149,10 @@ export function LocationInput({ onLocationSelected, isDisabled = false }: Locati
 					type="text"
 					value={query}
 					placeholder="or type an address..."
+					autoComplete="off"
 					onChange={(e) => handleQueryChange(e.target.value)}
 					onKeyDown={handleKeyDown}
+					suppressHydrationWarning
 					className="bg-cream focus:bg-cream-light border-2 border-espresso/[0.08] focus:border-burnt-orange/40 rounded-xl py-3.5 pl-11 pr-10 font-body text-[0.95rem] font-medium text-espresso placeholder:text-mocha placeholder:opacity-45 focus:shadow-[0_0_0_3px_rgba(200,89,10,0.08)] outline-none transition-all duration-200 w-full"
 				/>
 
