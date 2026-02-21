@@ -1,0 +1,37 @@
+service: help-i-need-coffee
+
+image: cooperwalter/help-i-need-coffee
+
+servers:
+  web:
+    hosts:
+      - ssh.cooperwalter.dev
+
+ssh:
+  user: cooper
+  config: true
+
+builder:
+  arch: arm64
+
+registry:
+  server: ghcr.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    PORT: 3000
+    NODE_ENV: production
+  secret:
+    - GOOGLE_PLACES_API_KEY
+
+proxy:
+  ssl: false
+  host: coffee.cooperwalter.dev
+  app_port: 3000
+  healthcheck:
+    path: /health
+    interval: 10
