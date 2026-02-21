@@ -32,7 +32,6 @@ proxy:
   ssl: false
   host: coffee.cooperwalter.dev
   app_port: 3000
-  http_port: 3080
   healthcheck:
     path: /health
     interval: 10
