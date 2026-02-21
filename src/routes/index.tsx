@@ -60,23 +60,19 @@ function FooterCupSvg() {
 
 			<path d="M10 30 L14 58 Q34 64 54 58 L58 30 Z" fill="#5C4033" opacity="0.6" />
 			<path d="M11 30 L15 57 Q34 62 53 57 L57 30 Z" fill="#8B6F5E" opacity="0.5" />
-			<path
-				d="M10 30 Q34 26 58 30"
-				fill="none"
-				stroke="#5C4033"
-				strokeWidth="1"
-				opacity="0.4"
-			/>
+			<path d="M10 30 Q34 26 58 30" fill="none" stroke="#5C4033" strokeWidth="1" opacity="0.4" />
 
 			<ellipse cx="34" cy="30" rx="24" ry="7" fill="#D4860A" opacity="0.5" />
 			<ellipse cx="34" cy="30" rx="22" ry="6" fill="#C8590A" opacity="0.3" />
 
+			<path d="M34 26 C30 28 30 31 34 33 C38 31 38 28 34 26 Z" fill="#FFF6EC" opacity="0.6" />
 			<path
-				d="M34 26 C30 28 30 31 34 33 C38 31 38 28 34 26 Z"
-				fill="#FFF6EC"
-				opacity="0.6"
+				d="M34 33 L34 36"
+				stroke="#FFF6EC"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				opacity="0.4"
 			/>
-			<path d="M34 33 L34 36" stroke="#FFF6EC" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
 
 			<path
 				d="M58 34 C64 34 68 38 68 43 C68 48 64 50 58 48"
@@ -251,7 +247,11 @@ export function Home() {
 							className={`transition-opacity duration-300 ${isEditingLocation ? "opacity-40" : ""}`}
 							style={{ animation: "fade-up 0.6s ease-out 0.3s both" }}
 						>
-							<ResultCard result={result} origin={userCoords ?? undefined} onSearchAgain={handleSearchAgain} />
+							<ResultCard
+								result={result}
+								origin={userCoords ?? undefined}
+								onSearchAgain={handleSearchAgain}
+							/>
 						</section>
 					</>
 				)}

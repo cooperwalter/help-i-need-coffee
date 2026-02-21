@@ -8,7 +8,11 @@ type LocationInputProps = {
 	isDisabled?: boolean;
 };
 
-export function LocationInput({ onLocationSelected, onEditingChange, isDisabled = false }: LocationInputProps) {
+export function LocationInput({
+	onLocationSelected,
+	onEditingChange,
+	isDisabled = false,
+}: LocationInputProps) {
 	const [mounted, setMounted] = useState(false);
 	const [geoLoading, setGeoLoading] = useState(false);
 	const [geoError, setGeoError] = useState<string | null>(null);
@@ -199,8 +203,7 @@ export function LocationInput({ onLocationSelected, onEditingChange, isDisabled 
 										aria-selected={index === highlightedIndex}
 										onClick={() => handleSuggestionClick(suggestion)}
 										onKeyDown={(e) => {
-											if (e.key === "Enter" || e.key === " ")
-												handleSuggestionClick(suggestion);
+											if (e.key === "Enter" || e.key === " ") handleSuggestionClick(suggestion);
 										}}
 										className={`px-4 py-3 cursor-pointer text-sm font-body text-espresso hover:bg-cream transition-colors duration-150${index === highlightedIndex ? " bg-cream" : ""}`}
 									>

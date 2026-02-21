@@ -23,7 +23,11 @@ export function buildWazeUrl(destination: Coordinates): string {
 	return `https://waze.com/ul?ll=${destination.lat},${destination.lng}&navigate=yes`;
 }
 
-export function buildMapsUrl(platform: Platform, destination: Coordinates, origin?: Coordinates): string {
+export function buildMapsUrl(
+	platform: Platform,
+	destination: Coordinates,
+	origin?: Coordinates,
+): string {
 	if (platform === "ios") {
 		return buildAppleMapsUrl(destination, origin);
 	}

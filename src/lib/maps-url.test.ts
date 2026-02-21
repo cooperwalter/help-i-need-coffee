@@ -28,9 +28,7 @@ describe("buildAppleMapsUrl", () => {
 
 describe("buildGoogleMapsAppUrl", () => {
 	it("should generate Google Maps navigation URL with correct coordinates", () => {
-		expect(buildGoogleMapsAppUrl(destination)).toBe(
-			"google.navigation:q=40.7128,-74.006&mode=d",
-		);
+		expect(buildGoogleMapsAppUrl(destination)).toBe("google.navigation:q=40.7128,-74.006&mode=d");
 	});
 });
 
@@ -50,9 +48,7 @@ describe("buildGoogleMapsIOSAppUrl", () => {
 
 describe("buildWazeUrl", () => {
 	it("should generate Waze URL with correct coordinates", () => {
-		expect(buildWazeUrl(destination)).toBe(
-			"https://waze.com/ul?ll=40.7128,-74.006&navigate=yes",
-		);
+		expect(buildWazeUrl(destination)).toBe("https://waze.com/ul?ll=40.7128,-74.006&navigate=yes");
 	});
 });
 
