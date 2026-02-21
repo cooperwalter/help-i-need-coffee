@@ -11,10 +11,13 @@ type DirectionsApiResponse = {
 	}>;
 };
 
-export async function getDirections(input: {
-	origin: Coordinates;
-	destination: Coordinates;
-}): Promise<DirectionsResult | DirectionsErrorResponse> {
+export async function getDirections(
+	input: {
+		origin: Coordinates;
+		destination: Coordinates;
+	},
+	options?: { timeoutMs?: number },
+): Promise<DirectionsResult | DirectionsErrorResponse> {
 	const { origin, destination } = input;
 	const apiKey = getApiKey();
 
@@ -27,6 +30,7 @@ export async function getDirections(input: {
 				mode: "driving",
 				key: apiKey,
 			},
+			timeoutMs: options?.timeoutMs,
 		});
 
 		const data = (await response.json()) as DirectionsApiResponse;
@@ -63,11 +67,21 @@ export async function getDirections(input: {
 			driveTimeMinutes,
 			distanceMeters,
 		});
-	} catch {
-		return sanitizeResponse<DirectionsErrorResponse>({
-			error: true,
-			message: "Request timed out",
-			code: "TIMEOUT",
-		});
+	} catch (error) {
+		if (error instanceof Error && error.message === "Request timed out") {
+			return sanitizeResponse<DirectionsErrorResponse>({
+				error: true,
+				message: "Request timed out",
+				code: "TIMEOUT",
+			});
+		}
+		if (error instanceof DOMException && error.name === "AbortError") {
+			return sanitizeResponse<DirectionsErrorResponse>({
+				error: true,
+				message: "Request timed out",
+				code: "TIMEOUT",
+			});
+		}
+		throw error;
 	}
 }

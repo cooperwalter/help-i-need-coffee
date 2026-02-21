@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 import { getDirections } from "../server/get-directions";
 
 function makeMockFetch(body: unknown, status = 200): typeof globalThis.fetch {
@@ -59,6 +59,44 @@ describe("getDirections", () => {
 			message: "Google API error: REQUEST_DENIED",
 			code: "API_ERROR",
 		});
+	});
+
+	it("should return TIMEOUT error when the Google API request times out", async () => {
+		globalThis.fetch = mock(
+			(_url: string, init: { signal: AbortSignal }) =>
+				new Promise((_resolve, reject) => {
+					init.signal.addEventListener("abort", () => {
+						reject(new DOMException("The operation was aborted.", "AbortError"));
+					});
+				}),
+		) as unknown as typeof globalThis.fetch;
+
+		const result = await getDirections(
+			{
+				origin: { lat: 37.7749, lng: -122.4194 },
+				destination: { lat: 37.7849, lng: -122.4094 },
+			},
+			{ timeoutMs: 50 },
+		);
+
+		expect(result).toEqual({
+			error: true,
+			message: "Request timed out",
+			code: "TIMEOUT",
+		});
+	});
+
+	it("should re-throw unexpected non-timeout errors instead of swallowing them", async () => {
+		globalThis.fetch = mock(() => {
+			throw new TypeError("Network request failed");
+		}) as unknown as typeof globalThis.fetch;
+
+		await expect(
+			getDirections({
+				origin: { lat: 37.7749, lng: -122.4194 },
+				destination: { lat: 37.7849, lng: -122.4094 },
+			}),
+		).rejects.toThrow("Network request failed");
 	});
 
 	it("should return NO_ROUTE error when no driving route exists between coordinates", async () => {
