@@ -5,6 +5,22 @@ import type { ReactNode } from "react";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
+	notFoundComponent: () => (
+		<div className="min-h-screen bg-cream flex items-center justify-center px-6">
+			<div className="text-center max-w-[440px]">
+				<p className="font-display italic text-4xl text-espresso mb-3">404</p>
+				<p className="font-body text-lg text-mocha mb-6">
+					wrong turn — there's no coffee down this road.
+				</p>
+				<a
+					href="/"
+					className="inline-block font-body font-bold text-sm tracking-wide uppercase bg-burnt-orange text-cream px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+				>
+					back to safety
+				</a>
+			</div>
+		</div>
+	),
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
