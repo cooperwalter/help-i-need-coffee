@@ -2,6 +2,7 @@ import { useState } from "react";
 import { formatDriveTime, formatOpenStatus } from "../lib/format";
 import {
 	buildAppleMapsUrl,
+	buildGoogleMapsIOSAppUrl,
 	buildGoogleMapsWebUrl,
 	buildMapsUrl,
 	buildWazeUrl,
@@ -24,7 +25,10 @@ export function ResultCard({ result, onSearchAgain }: ResultCardProps) {
 
 	const primaryMapsUrl = buildMapsUrl(platform, result.coordinates);
 	const appleMapsUrl = buildAppleMapsUrl(result.coordinates);
-	const googleMapsUrl = buildGoogleMapsWebUrl(result.coordinates);
+	const googleMapsUrl =
+		platform === "ios"
+			? buildGoogleMapsIOSAppUrl(result.coordinates)
+			: buildGoogleMapsWebUrl(result.coordinates);
 	const wazeUrl = buildWazeUrl(result.coordinates);
 
 	const resultLabel = RESULT_LABELS[0];

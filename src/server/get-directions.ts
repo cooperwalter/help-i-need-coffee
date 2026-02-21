@@ -1,3 +1,4 @@
+import { createServerFn } from "@tanstack/react-start";
 import { fetchWithRetry, getApiKey, sanitizeResponse } from "~/lib/google-api";
 import type { Coordinates, DirectionsErrorResponse, DirectionsResult } from "~/lib/types";
 
@@ -85,3 +86,9 @@ export async function getDirections(
 		throw error;
 	}
 }
+
+export const getDirectionsFn = createServerFn({ method: "GET" })
+	.inputValidator((data: { origin: Coordinates; destination: Coordinates }) => data)
+	.handler(async ({ data }) => {
+		return getDirections(data);
+	});

@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
 	buildAppleMapsUrl,
 	buildGoogleMapsAppUrl,
+	buildGoogleMapsIOSAppUrl,
 	buildGoogleMapsWebUrl,
 	buildMapsUrl,
 	buildWazeUrl,
@@ -19,6 +20,14 @@ describe("buildAppleMapsUrl", () => {
 describe("buildGoogleMapsAppUrl", () => {
 	it("should generate Google Maps navigation URL with correct coordinates", () => {
 		expect(buildGoogleMapsAppUrl(coords)).toBe("google.navigation:q=40.7128,-74.006&mode=d");
+	});
+});
+
+describe("buildGoogleMapsIOSAppUrl", () => {
+	it("should generate comgooglemaps:// URL with correct coordinates and driving mode for iOS", () => {
+		expect(buildGoogleMapsIOSAppUrl(coords)).toBe(
+			"comgooglemaps://?daddr=40.7128,-74.006&directionsmode=driving",
+		);
 	});
 });
 
