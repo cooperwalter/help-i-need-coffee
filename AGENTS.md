@@ -16,10 +16,15 @@ Run these after implementing to get immediate feedback:
 - Lint: `bunx biome check .`
 - Lint fix: `bunx biome check --write .`
 
-## Operational Notes
+## Testing
 
-...
+- Component tests use **jsdom** (configured in `test-setup.ts`, preloaded via `bunfig.toml`)
+- Module mocking: `mock.module("~/path", () => ({ export: mockFn }))` — bun hoists before imports
+- Test files in `src/routes/` are excluded from TanStack Router via `tsr.config.json`
 
-### Codebase Patterns
+## macOS Build Fix
 
-...
+If `bun run build` fails with `EPIPE` on macOS Sequoia:
+```
+codesign --force --deep --sign - node_modules/@esbuild/darwin-arm64/bin/esbuild
+```

@@ -80,7 +80,7 @@ function NoiseOverlay() {
 	);
 }
 
-function Home() {
+export function Home() {
 	const [appState, setAppState] = useState<AppState>("input");
 	const [result, setResult] = useState<CoffeeShopResult | null>(null);
 	const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
