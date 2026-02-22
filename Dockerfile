@@ -5,10 +5,10 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM node:22-slim
+FROM oven/bun:1
 WORKDIR /app
 COPY --from=builder /app/dist dist
 COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/package.json package.json
 EXPOSE 3000
-CMD ["node", "dist/server/server.js"]
+CMD ["bun", "dist/server/server.js"]
