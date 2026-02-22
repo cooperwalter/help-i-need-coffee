@@ -9,7 +9,7 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
-		"start": "node dist/server/server.js"
+		"start": "bun dist/server/server.js"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.4",
